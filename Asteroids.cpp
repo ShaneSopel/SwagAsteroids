@@ -45,7 +45,7 @@ Asteroids::Asteroids(unsigned char i_x, unsigned char i_y) :
 
 void Asteroids::draw(sf::RenderWindow& i_window)
 {
-    texture.loadFromFile("");
+    texture.loadFromFile("/home/shane/c++/SpaceGameC++/Resources/Images/Asteroids4.png");
 
     sprite.setPosition(x_dir, y_dir);
     sprite.setTexture(texture);

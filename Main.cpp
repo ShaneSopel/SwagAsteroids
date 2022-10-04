@@ -2,6 +2,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
+#include "Include/AsteroidsManager.h"
 #include "Include/DrawMap.h"
 #include "Include/SpaceConstants.h"
 #include "Include/SpaceShip.h"
@@ -10,9 +11,11 @@ using namespace SpaceConstants;
 
 int main()
 {
+    unsigned char level = 0;
+
    	sf::RenderWindow window(sf::VideoMode(CELL_SIZE * MAP_WIDTH * SCREEN_RESIZE, SCREEN_RESIZE * (FONT_HEIGHT + CELL_SIZE * MAP_HEIGHT)), "SpaceShip", sf::Style::Close);
 
-   window.setView(sf::View(sf::FloatRect(0, 0, CELL_SIZE * MAP_WIDTH, FONT_HEIGHT + CELL_SIZE * MAP_HEIGHT)));
+    window.setView(sf::View(sf::FloatRect(0, 0, CELL_SIZE * MAP_WIDTH, FONT_HEIGHT + CELL_SIZE * MAP_HEIGHT)));
 
     std::chrono::microseconds lag(0);
 
@@ -21,6 +24,8 @@ int main()
     previous_time = std::chrono::steady_clock::now();
 
     SpaceShip spaceship;
+
+    AsteroidsManager asteroid_manager(level);
 
     while (window.isOpen())
     {
@@ -45,6 +50,8 @@ int main()
 
             spaceship.update();
 
+            asteroid_manager.update(spaceship);
+            
                 if (FRAME_DURATION > lag)
                 {
                     window.clear();
@@ -56,7 +63,9 @@ int main()
                         spaceship.draw(window);
                     }
 
-                     spaceship.update();
+                    asteroid_manager.draw(window);
+
+                    spaceship.update();
 
                     window.display();
 

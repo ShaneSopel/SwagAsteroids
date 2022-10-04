@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
+#include "Asteroids.h"
 #include "SpaceShip.h"
 
 class AsteroidsManager

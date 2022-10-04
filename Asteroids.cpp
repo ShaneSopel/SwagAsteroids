@@ -5,6 +5,8 @@
 #include "Include/Asteroids.h"
 #include "Include/SpaceConstants.h"
 
+using namespace SpaceConstants;
+
 Asteroids::Asteroids(unsigned char i_x, unsigned char i_y) :
     direction(i_y % 2),
     x_dir(CELL_SIZE * i_x),
@@ -37,7 +39,7 @@ Asteroids::Asteroids(unsigned char i_x, unsigned char i_y) :
     }
     else
     {
-        speed = SLOW_SPEED:
+        speed = SLOW_SPEED;
     }
 }
 
@@ -58,4 +60,28 @@ void Asteroids::draw(sf::RenderWindow& i_window)
     }
 
     i_window.draw(sprite);
+}
+
+void Asteroids::update()
+{
+    if(direction = 0)
+    {
+        x_dir += speed;
+
+        if(x_dir >= CELL_SIZE * MAP_WIDTH)
+        {
+            x_dir -= static_cast<short>(CELL_SIZE * floor(1.5f * MAP_WIDTH));
+        }
+
+    }
+    else
+    {
+        x_dir -= speed;
+
+        if (x_dir <= -CELL_SIZE * floor(0.5f * MAP_WIDTH))
+        {
+            x_dir += static_cast<short>(CELL_SIZE * floor(1.5f * MAP_WIDTH));
+        }
+
+    }
 }

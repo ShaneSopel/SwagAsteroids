@@ -8,7 +8,6 @@
 
 using namespace SpaceConstants;
 
-
 SpaceShip::SpaceShip()
 {
     reset();
@@ -175,4 +174,9 @@ void SpaceShip::update()
 
 	}
 
+}
+
+sf::IntRect SpaceShip::get_rect() const
+{
+	return sf::IntRect(x_dir, y_dir, CELL_SIZE, CELL_SIZE);
 }

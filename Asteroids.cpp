@@ -85,3 +85,8 @@ void Asteroids::update()
 
     }
 }
+
+sf::IntRect Asteroids::get_rect() const
+{
+	return sf::IntRect(x_dir, y_dir, size, CELL_SIZE);
+}

@@ -8,10 +8,10 @@
 
 class AsteroidsManager
 {
-    std::vector<AsteroidsManager> asteroidsManager;
+    std::vector<Asteroids> asteroidsManager;
 
 public:
-    AsteroidsManager();
+    AsteroidsManager(unsigned char i_level);
 
     void draw(sf::RenderWindow& i_window);
     void generate_level(unsigned char i_level);

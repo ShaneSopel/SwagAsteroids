@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 
 class Asteroids 
+{
     bool direction;
 
     // X and Y Axis
@@ -22,7 +23,7 @@ class Asteroids
     sf::Texture texture;
 
 public:
-    Astroid(unsigned char i_x, unsigned char i_y);
+    Asteroids(unsigned char i_x, unsigned char i_y);
 
     void draw(sf::RenderWindow& i_window);
     void update();

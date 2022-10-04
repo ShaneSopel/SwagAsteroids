@@ -1,0 +1,12 @@
+cmake_minimum_required(VERSION 2.8)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
+project( DisplayImage )
+find_package(SFML 2.5 
+  COMPONENTS system window graphics audio REQUIRED)
+set(INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/Include/)
+set(HEADERS  ${INCLUDE_DIR}/Astroid.h ${INCLUDE_DIR}/AstroidsManager.h ${INCLUDE_DIR}/DrawMap.h ${INCLUDE_DIR}/SpaceConstants.h ${INCLUDE_DIR}/SpaceShip.h )
+set(SOURCES Astroid.cpp AstroidsManager.cpp DrawMap.cpp Main.cpp SpaceShip.cpp )
+include_directories(${INCLUDE_DIR})
+add_executable(SpaceC++ ${SOURCES} ${HEADERS})
+target_include_directories(SpaceC++ PRIVATE ${PROJECT_BINARY_DIR} ${INCLUDE_DIR})
+target_link_libraries(SpaceC++ sfml-system sfml-graphics sfml-audio sfml-window) 

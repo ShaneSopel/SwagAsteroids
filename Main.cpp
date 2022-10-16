@@ -1,8 +1,12 @@
 
 #include <iostream>
+#include <list>
 #include <SFML/Graphics.hpp>
 
+#include "Include/Asteroids.h"
+#include "Include/Animation.h"
 #include "Include/DrawMap.h"
+#include "Include/Entity.h"
 #include "Include/SpaceConstants.h"
 #include "Include/SpaceShip.h"
 
@@ -23,6 +27,18 @@ int main()
     previous_time = std::chrono::steady_clock::now();
 
     SpaceShip spaceship;
+    sf::Texture t1;
+    t1.loadFromFile("/home/shanes/c++/SwagAsteroids/Resources/Images/Asteroids2.png");
+    Animation sRock(t1, 0,0,64,64, 16, 0.2);
+
+    std::list<Entity*> entities;
+
+    for(int i=0;i<15;i++)
+    {
+      Asteroids *a = new Asteroids();
+      a->settings(sRock, rand()%MAP_WIDTH1, rand()%MAP_HEIGHT1, rand()%360, 25);
+      entities.push_back(a);
+    }
 
     while (window.isOpen())
     {
@@ -58,8 +74,15 @@ int main()
                         spaceship.draw(window);
                     }
 
-                    spaceship.update();
+                    if (rand()%150==0)
+                    {
+                        Asteroids *a = new Asteroids();
+                        a->settings(sRock, 0,rand()%MAP_HEIGHT1, rand()%360, 25);
+                        entities.push_back(a);
+                    }
 
+                    spaceship.update();
+                    for(auto i:entities) i->draw(window);
                     window.display();
 
                 }

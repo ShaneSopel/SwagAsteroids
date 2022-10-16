@@ -18,6 +18,10 @@ constexpr unsigned char SCREEN_RESIZE = 2;
 constexpr unsigned char SLOW_SPEED = 1;
 constexpr unsigned char TOTAL_LEVELS = 8;
 
+constexpr unsigned short MAP_WIDTH1 = 1200;
+constexpr unsigned short MAP_HEIGHT1 = 800;
+
+
 //This is in frames.
 constexpr unsigned short TIMER_INITIAL_DURATION = 4096;
 //After the player passes the level, we reduce the duration of the timer by this amount.

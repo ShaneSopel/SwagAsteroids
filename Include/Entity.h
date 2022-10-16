@@ -3,6 +3,8 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "Animation.h"
+
 class Entity
 {
     public:
@@ -19,10 +21,10 @@ class Entity
     Animation anim;
 
     Entity();
-    void settings(Animation &a,int x_coord,int y_coord,float Angle=0,int radius=1);
-    virtual void update();
-    virtual ~Entity();
-    void draw();
+    void settings(Animation &a,int x_coord1,int y_coord1,float Angle,int radius);
+    virtual void update(){};
+    virtual ~Entity(){};
+    void draw(sf::RenderWindow &app);
 
 };
 

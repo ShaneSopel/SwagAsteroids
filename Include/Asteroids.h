@@ -3,33 +3,14 @@
 
 #include <SFML/Graphics.hpp>
 
-class Asteroids 
+#include "Entity.h"
+
+class Asteroids : public Entity 
 {
-    bool direction;
-
-    // X and Y Axis
-    short x_dir;
-    unsigned short y_dir;
-
-    // Astroid Variables 
-    unsigned char size;
-    unsigned char speed;
-    unsigned char type;
-
-    // Create Sprite
-    sf::Sprite sprite;
-
-    // Create Texture
-    sf::Texture texture;
-
+   
 public:
-    Asteroids(unsigned char i_x, unsigned char i_y);
-
-    void draw(sf::RenderWindow& i_window);
+    Asteroids();
     void update();
-    void settings(Animation &a,int X,int Y,float Angle=0,int radius=1);
- 
-
     sf::IntRect get_rect() const;
 };
 

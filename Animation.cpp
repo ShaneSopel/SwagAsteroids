@@ -2,14 +2,14 @@
 
 #include "Include/Animation.h"
 
- Animation::Animation(Texture& t, int x_coord, int y_coord, int width, int height, int count, float Speed)
+ Animation::Animation(sf::Texture& t, int x_coord, int y_coord, int width, int height, int count, float Speed)
  {
-    Frame = 0;
+    frame = 0;
     speed = Speed;
 
-    for int(int counter = l; counter<count; counter++)
+    for (int counter = 0; counter<count; counter++)
     {
-        frames.push_back(IntRect(x_coord+counter*width, y_coord, width, height));
+        frames.push_back(sf::IntRect(x_coord+counter*width, y_coord, width, height));
     }
 
      sprite.setTexture(t);
@@ -19,20 +19,20 @@
 
 bool Animation::isEnd()
 {
-    return Frame+speed>=frames.size();
+    return frame+speed>=frames.size();
 }
 
  void Animation::update()
  {
-    Frame += speed;
+    frame += speed;
     int n = frames.size();
-    if (Frame >= n)
+    if (frame >= n)
     {
-        Frame -= n;
+        frame -= n;
     }
 
     if (n>0)
     {
-        sprite.setTextureRect(frames[int(Frame)]);
+        sprite.setTextureRect(frames[int(frame)]);
     }
  }

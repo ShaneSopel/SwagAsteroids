@@ -3,17 +3,12 @@
 #include "Include/Bullet.h"
 #include "Include/SpaceShip.h"
 
-Bullet::Bullet(sf::Vector2f size)
+Bullet::Bullet()
 {
-    bullet.setSize(size);
+   
 }
 
-/*void::Bullet::setDirection(IntRect direction)
+void Bullet::update()
 {
-
-}*/
-
-void Bullet::fire(int speed)
-{
-    bullet.move(speed, 0);
+   
 }

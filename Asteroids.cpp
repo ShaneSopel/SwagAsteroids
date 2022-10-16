@@ -7,86 +7,23 @@
 
 using namespace SpaceConstants;
 
-Asteroids::Asteroids(unsigned char i_x, unsigned char i_y) :
-    direction(i_y % 2),
-    x_dir(CELL_SIZE * i_x),
-    size(CELL_SIZE * (1 +(2 > i_y))),
-    type(i_y), 
-    y_dir(static_cast<unsigned short>(CELL_SIZE * floor(1 + i_y + 0.5f * MAP_HEIGHT)))
+Asteroids::Asteroids()
 {
-    if(direction = 0)
-    {
-        if(x_dir >= CELL_SIZE * MAP_WIDTH)
-        {
-            x_dir -= static_cast<short>(CELL_SIZE * floor(1.5f * MAP_WIDTH));
-        }
-    }
-    else
-    {
-        if(x_dir <= -CELL_SIZE * floor(0.5f * MAP_WIDTH))
-        {
-            x_dir += static_cast<short>(CELL_SIZE * floor(1.5f * MAP_WIDTH));
-        }
-    }
-
-    if (2 > i_y)
-    {
-        speed = NORMAL_SPEED;
-    }
-    else if (4 > i_y)
-    {
-        speed = FAST_SPEED;
-    }
-    else
-    {
-        speed = SLOW_SPEED;
-    }
-}
-
-void Asteroids::draw(sf::RenderWindow& i_window)
-{
-    texture.loadFromFile("/home/shanes/c++/SwagAsteroids/Resources/Images/Asteroids4.png");
-
-    sprite.setPosition((rand() % 1000), (rand() % 1000));
-    sprite.setTexture(texture);
-
-    if(direction = 0)
-    {
-        sprite.setTextureRect(sf::IntRect(0, CELL_SIZE * type, size, CELL_SIZE));
-    }
-    else
-    {
-        sprite.setTextureRect(sf::IntRect(size, CELL_SIZE * type, -size, CELL_SIZE));
-    }
-
-    i_window.draw(sprite);
+    dx=rand()%8-4;
+    dy=rand()%8-4;
+    name="asteroid";
 }
 
 void Asteroids::update()
 {
-    if(direction = 0)
-    {
-        x_dir += speed;
+     x_coord+=dx;
+     y_coord+=dy;
 
-        if(x_dir >= CELL_SIZE * MAP_WIDTH)
-        {
-            x_dir -= static_cast<short>(CELL_SIZE * floor(1.5f * MAP_WIDTH));
-        }
-
-    }
-    else
-    {
-        x_dir -= speed;
-
-        if (x_dir <= -CELL_SIZE * floor(0.5f * MAP_WIDTH))
-        {
-            x_dir += static_cast<short>(CELL_SIZE * floor(1.5f * MAP_WIDTH));
-        }
-
-    }
+     if (x_coord>MAP_WIDTH1) x_coord=0;  if (x_coord<0) x_coord=MAP_WIDTH1;
+     if (y_coord>MAP_WIDTH1) y_coord=0;  if (y_coord<0) y_coord=MAP_HEIGHT1;
 }
 
 sf::IntRect Asteroids::get_rect() const
 {
-	return sf::IntRect(x_dir, y_dir, size, CELL_SIZE);
+    return sf::IntRect(x_coord, y_coord, CELL_SIZE, CELL_SIZE);
 }

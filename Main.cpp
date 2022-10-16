@@ -2,7 +2,6 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
-#include "Include/AsteroidsManager.h"
 #include "Include/DrawMap.h"
 #include "Include/SpaceConstants.h"
 #include "Include/SpaceShip.h"
@@ -24,8 +23,6 @@ int main()
     previous_time = std::chrono::steady_clock::now();
 
     SpaceShip spaceship;
-
-    AsteroidsManager asteroid_manager(level);
 
     while (window.isOpen())
     {
@@ -49,8 +46,6 @@ int main()
             }
 
             spaceship.update();
-
-            asteroid_manager.update(spaceship);
             
                 if (FRAME_DURATION > lag)
                 {
@@ -62,8 +57,6 @@ int main()
                     {
                         spaceship.draw(window);
                     }
-
-                    asteroid_manager.draw(window);
 
                     spaceship.update();
 

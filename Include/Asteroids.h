@@ -27,6 +27,8 @@ public:
 
     void draw(sf::RenderWindow& i_window);
     void update();
+    void settings(Animation &a,int X,int Y,float Angle=0,int radius=1);
+ 
 
     sf::IntRect get_rect() const;
 };

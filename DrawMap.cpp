@@ -10,7 +10,7 @@ void draw_map(sf::RenderWindow& i_window)
     sf::Sprite sprite;
     sf::Texture texture;
 
-    if(!texture.loadFromFile("/home/shane/c++/SpaceGameC++/Resources/Images/space.png"))
+    if(!texture.loadFromFile("/home/shanes/c++/SwagAsteroids/Resources/Images/space.png"))
     {
         std::cout << "error";
     }

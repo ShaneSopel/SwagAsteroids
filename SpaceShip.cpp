@@ -51,7 +51,7 @@ void SpaceShip::draw(sf::RenderWindow& i_window)
 {
 //	if (destroyed == 0)
 //	{
-		texture.loadFromFile("/home/shane/c++/SpaceGameC++/Resources/Images/starship1.png");
+		texture.loadFromFile("/home/shanes/c++/SwagAsteroids/Resources/Images/starship1.png");
 //	}
 	//else
 	//{
@@ -128,6 +128,7 @@ void SpaceShip::update()
 			x_dir = std::max(x_dir - CELL_SIZE, 0);
 
 			direction = 2;
+			
 		}
 		else if (control_keys[3] == 0 && 1 == sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 		{

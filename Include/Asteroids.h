@@ -11,7 +11,7 @@ class Asteroids : public Entity
 public:
     Asteroids();
     void update();
-    sf::IntRect get_rect() const;
+
 };
 
 #endif

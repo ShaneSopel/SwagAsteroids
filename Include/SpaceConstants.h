@@ -7,19 +7,9 @@
 namespace SpaceConstants
 {
     
-constexpr unsigned char CELL_SIZE = 41;
-constexpr unsigned char FAST_SPEED = 3;
-constexpr unsigned char FONT_HEIGHT = 16;
-constexpr unsigned char SHIP_ANIMATION_SPEED = 8;
-constexpr unsigned char MAP_WIDTH = 10;
-constexpr unsigned char MAP_HEIGHT = 10;
-constexpr unsigned char NORMAL_SPEED = 2;
-constexpr unsigned char SCREEN_RESIZE = 2;
-constexpr unsigned char SLOW_SPEED = 1;
-constexpr unsigned char TOTAL_LEVELS = 8;
-
-constexpr unsigned short MAP_WIDTH1 = 1200;
-constexpr unsigned short MAP_HEIGHT1 = 800;
+constexpr unsigned short MAP_WIDTH1 = 800;
+constexpr unsigned short MAP_HEIGHT1 = 600;
+const float DEGTORAD = 0.017453f;
 
 
 //This is in frames.

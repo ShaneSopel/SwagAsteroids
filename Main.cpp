@@ -5,6 +5,8 @@
 
 #include "Include/Asteroids.h"
 #include "Include/Animation.h"
+#include "Include/Bullet.h"
+#include "Include/Collision.h"
 #include "Include/DrawMap.h"
 #include "Include/Entity.h"
 #include "Include/SpaceConstants.h"
@@ -16,20 +18,28 @@ int main()
 {
     unsigned char level = 0;
 
-   	sf::RenderWindow window(sf::VideoMode(CELL_SIZE * MAP_WIDTH * SCREEN_RESIZE, SCREEN_RESIZE * (FONT_HEIGHT + CELL_SIZE * MAP_HEIGHT)), "SpaceShip", sf::Style::Close);
+   	sf::RenderWindow app(sf::VideoMode(MAP_WIDTH1, MAP_HEIGHT1), "SwagAsteroids");
+    app.setFramerateLimit(60);
 
-    window.setView(sf::View(sf::FloatRect(0, 0, CELL_SIZE * MAP_WIDTH, FONT_HEIGHT + CELL_SIZE * MAP_HEIGHT)));
-
-    std::chrono::microseconds lag(0);
-
-	std::chrono::steady_clock::time_point previous_time;
-
-    previous_time = std::chrono::steady_clock::now();
-
-    SpaceShip spaceship;
     sf::Texture t1;
-    t1.loadFromFile("/home/shanes/c++/SwagAsteroids/Resources/Images/Asteroids2.png");
-    Animation sRock(t1, 0,0,64,64, 16, 0.2);
+    t1.loadFromFile("/home/shanes/c++/SwagAsteroids/Resources/Images/rock.png");
+    Animation sRock(t1, 0,0, 64, 64, 16, 0.2);
+
+    sf::Texture t2;
+    t2.loadFromFile("/home/shanes/c++/SwagAsteroids/Resources/Images/fire_blue.png");
+    Animation sBullet(t2, 0,0,32,64, 16, 0.8);
+
+    sf::Texture t3;
+    t3.loadFromFile("/home/shanes/c++/SwagAsteroids/Resources/Images/Starship3.png");
+    Animation sSpaceShip(t3, 40,0,52,52, 1, 0);
+
+    sf::Texture t4;
+    t4.loadFromFile("/home/shanes/c++/SwagAsteroids/Resources/Images/space.png");
+    
+    t3.setSmooth(true);
+    t4.setSmooth(true);
+
+    sf::Sprite background(t4);
 
     std::list<Entity*> entities;
 
@@ -40,55 +50,79 @@ int main()
       entities.push_back(a);
     }
 
-    while (window.isOpen())
+    SpaceShip *p = new SpaceShip();
+    p->settings(sSpaceShip,200,200,0,20);
+    entities.push_back(p);
+
+    while (app.isOpen())
     {
-
-        std::chrono::microseconds delta_time = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now() - previous_time);
-
-		lag += delta_time;
-
         sf::Event event;
 
-        previous_time += delta_time;
-
-        while (FRAME_DURATION <= lag)
+        while (app.pollEvent(event))
         {
-            lag -= FRAME_DURATION;
+            if (event.type == sf::Event::Closed)
+            app.close();
 
-            while (window.pollEvent(event) == 1)
+            if (event.key.code == sf::Keyboard::Space)
             {
-                if (event.type == sf::Event::Closed)
-                window.close();
+                Bullet *b = new Bullet();
+                b->settings(sBullet,p->x_coord,p->y_coord,p->angle,10);
+                entities.push_back(b);
             }
+        }
 
-            spaceship.update();
-            
-                if (FRAME_DURATION > lag)
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) p->angle+=3;
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))  p->angle-=3;
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))    p->thrust=true;
+        else p->thrust=false;
+
+        for(auto a:entities)
+        {
+
+            for(auto b:entities)
+            {
+            if (a->name=="asteroid" && b->name=="bullet")
+            if ( isCollide(a,b) )
                 {
-                    window.clear();
-                    
-                    draw_map(window);
+                    a->life=false;
+                    b->life=false;
 
-                    if (spaceship.get_Destroyed() == 0)
-                    {
-                        spaceship.draw(window);
-                    }
-
-                    if (rand()%150==0)
-                    {
-                        Asteroids *a = new Asteroids();
-                        a->settings(sRock, 0,rand()%MAP_HEIGHT1, rand()%360, 25);
-                        entities.push_back(a);
-                    }
-
-                    spaceship.update();
-                    for(auto i:entities) i->draw(window);
-                    window.display();
-
+                    //Entity *e = new Entity();
+                    //e->settings(sExplosion,a->x,a->y);
+                    //e->name="explosion";
+                    //entities.push_back(e);
                 }
 
+            }
         }
-        
+
+        if (p->thrust)  p->anim = sSpaceShip;
+        else   p->anim = sSpaceShip;
+
+        if (rand()%150==0)
+        {
+            Asteroids *a = new Asteroids();
+            a->settings(sRock, 0,rand()%MAP_HEIGHT1, rand()%360, 25);
+            entities.push_back(a);
+        }
+
+        for(auto i=entities.begin();i!=entities.end();)
+        {
+            Entity *e = *i;
+            e->update();
+            e->anim.update();
+
+            if (e->life==false) {i=entities.erase(i); delete e;}
+            else i++;
+        }
+
+        app.clear();
+        //draw_map(app);
+        //p->update();
+        app.draw(background);
+        for(auto i:entities) i->draw(app);
+        app.display();
+
     }
     
 }

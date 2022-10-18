@@ -1,5 +1,7 @@
 #include "Include/Collision.h"
 
+#include "Include/Entity.h"
+
 bool isCollide(Entity *a, Entity *b)
 {
   return (b->x_coord - a->x_coord)*(b->x_coord - a->x_coord)+

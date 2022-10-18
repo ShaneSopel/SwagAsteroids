@@ -35,6 +35,10 @@ int main()
 
     sf::Texture t4;
     t4.loadFromFile("/home/shanes/c++/SwagAsteroids/Resources/Images/space.png");
+
+    sf::Texture t5;
+    t5.loadFromFile("/home/shanes/c++/SwagAsteroids/Resources/Images/type_C.png");
+    Animation sExplosion(t5, 0,0,256,256, 48, 0.5);
     
     t3.setSmooth(true);
     t4.setSmooth(true);
@@ -87,10 +91,20 @@ int main()
                     a->life=false;
                     b->life=false;
 
-                    //Entity *e = new Entity();
-                    //e->settings(sExplosion,a->x,a->y);
-                    //e->name="explosion";
-                    //entities.push_back(e);
+                    Entity *e = new Entity();
+                    e->settings(sExplosion,a->x_coord,a->y_coord,0,0);
+                    e->name="explosion";
+                    entities.push_back(e);
+
+
+                    for(int i=0;i<2;i++)
+                    {
+                        if (a->R==15) continue;
+                        Entity *e = new Asteroids();
+                        e->settings(sRock,a->x_coord,a->y_coord,rand()%360,15);
+                        entities.push_back(e);
+                    }
+
                 }
 
             }
@@ -98,6 +112,10 @@ int main()
 
         if (p->thrust)  p->anim = sSpaceShip;
         else   p->anim = sSpaceShip;
+
+        for(auto e:entities)
+        if (e->name=="explosion")
+         if (e->anim.isEnd()) e->life=0;
 
         if (rand()%150==0)
         {

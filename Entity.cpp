@@ -1,7 +1,4 @@
-#include <SFML/Graphics.hpp>
-
 #include "Include/Entity.h"
-#include "Include/Animation.h"
 
 Entity::Entity()
 {

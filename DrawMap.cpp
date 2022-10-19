@@ -5,7 +5,7 @@
 #include "Include/SpaceConstants.h"
 
 using namespace SpaceConstants;
-/*void draw_map(sf::RenderWindow& i_window)
+void draw_map(sf::RenderWindow& i_window)
 {
     sf::Sprite sprite;
     sf::Texture texture;
@@ -18,4 +18,4 @@ using namespace SpaceConstants;
     sprite.setTexture(texture);
 
     i_window.draw(sprite);
-}*/
+}

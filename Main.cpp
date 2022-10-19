@@ -9,6 +9,8 @@
 #include "Include/Collision.h"
 #include "Include/DrawMap.h"
 #include "Include/Entity.h"
+#include "GameObject.h"
+#include "Include/Menu.h"
 #include "Include/SpaceConstants.h"
 #include "Include/SpaceShip.h"
 
@@ -21,29 +23,13 @@ int main()
    	sf::RenderWindow app(sf::VideoMode(MAP_WIDTH1, MAP_HEIGHT1), "SwagAsteroids");
     app.setFramerateLimit(60);
 
-    sf::Texture t1;
-    t1.loadFromFile("/home/shanes/c++/SwagAsteroids/Resources/Images/rock.png");
-    Animation sRock(t1, 0,0, 64, 64, 16, 0.2);
-
-    sf::Texture t2;
-    t2.loadFromFile("/home/shanes/c++/SwagAsteroids/Resources/Images/fire_blue.png");
-    Animation sBullet(t2, 0,0,32,64, 16, 0.8);
-
-    sf::Texture t3;
-    t3.loadFromFile("/home/shanes/c++/SwagAsteroids/Resources/Images/Starship3.png");
-    Animation sSpaceShip(t3, 40,0,52,52, 1, 0);
-
-    sf::Texture t4;
-    t4.loadFromFile("/home/shanes/c++/SwagAsteroids/Resources/Images/space.png");
-
-    sf::Texture t5;
-    t5.loadFromFile("/home/shanes/c++/SwagAsteroids/Resources/Images/type_C.png");
-    Animation sExplosion(t5, 0,0,256,256, 48, 0.5);
-    
-    t3.setSmooth(true);
-    t4.setSmooth(true);
-
-    sf::Sprite background(t4);
+    Menu menu(app.getSize().x, app.getSize().y);
+    GameObject game;
+    game.setAnimation();
+    Animation sRock = game.getRock();
+    Animation sSpaceShip = game.getSpaceShip();
+    Animation sBullet = game.getBullet();
+    Animation sExplosion= game.getExplosion();
 
     std::list<Entity*> entities;
 
@@ -135,9 +121,8 @@ int main()
         }
 
         app.clear();
-        //draw_map(app);
-        //p->update();
-        app.draw(background);
+        draw_map(app);
+ 
         for(auto i:entities) i->draw(app);
         app.display();
 

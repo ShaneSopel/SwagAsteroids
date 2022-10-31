@@ -57,7 +57,12 @@ Animation GameObject::getExplosion()
     return Explosion;
 }
 
-void GameObject::InitializeAsteroids(std::list<Entity*> entities)
+int GameObject::GetState()
 {
- 
+    return state;
+}
+
+void GameObject::SetState(int sstate)
+{
+    state = sstate;
 }

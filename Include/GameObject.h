@@ -5,6 +5,12 @@
 
 #include "Animation.h"
 
+enum STATE
+{
+    menu = 0,
+    level1
+};
+
 class GameObject
 {
 
@@ -21,12 +27,17 @@ class GameObject
     public:
     GameObject();
     void CreateTexture();
-    void InitializeAsteroids(std::list<Entity*> entities);
+    //void InitializeAsteroids(std::list<Entity*> entities);
     void setAnimation();
     Animation getRock();
     Animation getBullet();
     Animation getSpaceShip();
     Animation getExplosion();
+
+    void SetState(int sstate);
+    int GetState();
+
+    int state;
 
 };
 

@@ -1,5 +1,5 @@
-#ifndef MENU_H
-#define MENU_H
+#ifndef GAMEOVER_H
+#define GAMEOVER_H
 
 #define MAX_NUMBER_OF_ITEMS 3
 
@@ -7,7 +7,7 @@
 
 #include "GameObject.h"
 
-class Menu
+class GameOver
 {
     sf::Font font;
     sf::Text text[MAX_NUMBER_OF_ITEMS];
@@ -16,14 +16,12 @@ class Menu
 
     bool m_isPlayButtonSelected;
     bool m_isPlayButtonPressed;
-    bool m_isOptionsButtonSelected;
-    bool m_isOptionsButtonPressed;
     bool m_isExitButtonSelected;
     bool m_isExitButtonPressed;
 
     public:
-    Menu(float Width, float Height);
-    ~Menu();
+    GameOver(float Width, float Height);
+    ~GameOver();
 
     void draw(sf::RenderWindow &window);
     void ProcessInput(sf::RenderWindow &window, sf::Event event);

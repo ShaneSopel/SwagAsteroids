@@ -34,3 +34,24 @@ void SpaceShip::update()
     if (x_coord>MAP_WIDTH1) x_coord=0; if (x_coord<0) x_coord=MAP_WIDTH1;
     if (y_coord>MAP_HEIGHT1) y_coord=0; if (y_coord<0) y_coord=MAP_HEIGHT1;
 }
+
+
+int SpaceShip::GetScore()
+{
+  return m_score;
+}
+
+void SpaceShip::SetScore(int score)
+{
+  m_score += score;
+}
+
+int SpaceShip::GetLives()
+{
+  return m_lives;
+}
+
+void SpaceShip::SetLives(int lives)
+{
+  m_lives -= lives;
+}

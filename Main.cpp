@@ -2,6 +2,7 @@
 #include <iostream>
 #include <list>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 #include "Include/Asteroids.h"
 #include "Include/Animation.h"
@@ -23,6 +24,13 @@ int main()
     Menu menu(MAP_WIDTH1, MAP_HEIGHT1);
 
     GameObject game;
+
+    sf::Music music;
+
+    music.openFromFile("/home/shanes/c++/SwagAsteroids/Resources/Sounds/Triumph.flac");
+    music.setVolume(75);
+
+    music.play();
 
     game.SetState(0);
     game.setAnimation();

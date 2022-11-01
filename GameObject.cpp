@@ -21,7 +21,7 @@ GameObject::GameObject()
 
     t4.loadFromFile("/home/shanes/c++/SwagAsteroids/Resources/Images/type_C.png");
     Animation sExplosion(t4, 0,0,256,256, 48, 0.5);
-    
+   
     t3.setSmooth(true);
 }
 
@@ -66,3 +66,4 @@ void GameObject::SetState(int sstate)
 {
     state = sstate;
 }
+

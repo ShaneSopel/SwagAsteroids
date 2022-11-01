@@ -2,7 +2,6 @@
 #include <list>
 #include <sstream>
 #include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
 
 #include "Include/Asteroids.h"
 #include "Include/Animation.h"
@@ -39,7 +38,12 @@ int main()
 
     GameObject game;
 
-    sf::Music music;
+    sf::Music music;    
+    sf::SoundBuffer sblaser;
+    sf::SoundBuffer sbExplosion;
+    sf::Sound Lasersound;
+    sf::Sound Explosionsound1; 
+
 
     TextManager oneuptext;
     TextManager HighScore;
@@ -48,9 +52,13 @@ int main()
     HighScore.loadFont();
     Lives.loadFont();
 
-    music.openFromFile("/home/shanes/c++/SwagAsteroids/Resources/Sounds/Triumph.flac");
-    music.setVolume(75);
+    sblaser.loadFromFile("/home/shanes/c++/SwagAsteroids/Resources/Sounds/Laser1.wav");
+    sbExplosion.loadFromFile("/home/shanes/c++/SwagAsteroids/Resources/Sounds/Explosion-Hard.wav");
+    Lasersound.setBuffer(sblaser);
+    Explosionsound1.setBuffer(sbExplosion);
 
+    music.openFromFile("/home/shanes/c++/SwagAsteroids/Resources/Sounds/SwagAsteroidsTheme.wav");
+    music.setVolume(75);
     music.play();
 
     game.SetState(0);
@@ -62,11 +70,20 @@ int main()
 
     std::list<Entity *> entities;
 
-    setlevel(1, sRock, entities);
+    int val;
+    val = 5;
+
+    setlevel(val, sRock, entities);
+    std::cout << entities.size();
+    val = entities.size();
+
+    std::cout << val << std::endl;
 
     SpaceShip *p = new SpaceShip();
     p->settings(sSpaceShip, 400, 400, 0, 20);
     entities.push_back(p);
+
+    std::cout<< entities.size() << std::endl;
 
     sf::RenderWindow mainMenu(sf::VideoMode(MAP_WIDTH1, MAP_HEIGHT1), "SwagAsteroids");
     mainMenu.setFramerateLimit(60);
@@ -84,6 +101,9 @@ int main()
 
         if (game.GetState() == 1)
         {
+            
+            
+            std::cout<< "made it here" <<std::endl;
             sf::RenderWindow play(sf::VideoMode(MAP_WIDTH1, MAP_HEIGHT1), "SwagAsteroids");
             sf::Event event1;
             while (play.isOpen())
@@ -111,6 +131,7 @@ int main()
 
                     if (event1.key.code == sf::Keyboard::Space)
                     {
+                        Lasersound.play();
                         Bullet *b = new Bullet();
                         b->settings(sBullet, p->x_coord, p->y_coord, p->angle, 10);
                         entities.push_back(b);
@@ -141,8 +162,15 @@ int main()
                                 e->settings(sExplosion, a->x_coord, a->y_coord, 0, 0);
                                 e->name = "explosion";
                                 entities.push_back(e);
-
+                                Explosionsound1.play();
+                                val --;
+                                std::cout<< val << std::endl;
                                 p->SetScore(10);
+
+                                if (val == 0)
+                                {
+                                    std::cout << "level complete" << std::endl;
+                                }
                             }
 
                         if (a->name == "SpaceShip" && b->name == "asteroid")

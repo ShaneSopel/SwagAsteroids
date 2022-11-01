@@ -1,6 +1,7 @@
 #ifndef GAMEOBJECT_H
 #define GAMEOBJECT_H
 
+#include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 
 #include "Animation.h"
@@ -27,7 +28,6 @@ class GameObject
     public:
     GameObject();
     void CreateTexture();
-    //void InitializeAsteroids(std::list<Entity*> entities);
     void setAnimation();
     Animation getRock();
     Animation getBullet();

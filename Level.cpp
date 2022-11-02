@@ -11,6 +11,7 @@
 using namespace SpaceConstants;
 
 Level::Level(float width, float height)
+: m_AsteroidNum(5)
 {
 }
 
@@ -46,21 +47,12 @@ void Level::ProcessInput(sf::RenderWindow &play ,sf::Event event, sf::Sound &Las
 
 }
 
-void Level::Update(sf::RenderWindow &play, GameObject& game, std::list<Entity *> &entities, TextManager &oneuptext, TextManager &HighScore, TextManager &Lives, SpaceShip *p, Animation sSpaceShip, Animation sExplosion, sf::Sound &Explosionsound1 )
+void Level::Update(sf::RenderWindow &play, GameObject& game, std::list<Entity *> &entities, TextManager &oneuptext, TextManager &HighScore, TextManager &Lives, SpaceShip *p, Animation sSpaceShip, Animation sExplosion, sf::Sound &Explosionsound1, TextManager &AsteroidsRemain)
 {
 
-    ScoreHandler(oneuptext, HighScore, Lives, p);
+    ScoreHandler( oneuptext, HighScore, Lives, AsteroidsRemain, p);
     CollisionHandler(sSpaceShip,  entities, sExplosion, Explosionsound1, p);
-
-    if (p->thrust)
-    {
-        p->anim = sSpaceShip;
-    }
-    else
-    {
-        p->anim = sSpaceShip;
-    }
-
+    ThrustHandler(sSpaceShip, p);
     LifeHandler(entities);
 
     for (auto i = entities.begin(); i != entities.end();)
@@ -81,7 +73,7 @@ void Level::Update(sf::RenderWindow &play, GameObject& game, std::list<Entity *>
     
 }
 
-void Level::Draw(sf::RenderWindow &play, GameObject& game, std::list<Entity *> &entities, TextManager &oneuptext, TextManager &HighScore, TextManager &Lives, SpaceShip *p)
+void Level::Draw(sf::RenderWindow &play, GameObject& game, std::list<Entity *> &entities, TextManager &oneuptext, TextManager &HighScore, TextManager &Lives, TextManager &AsteroidsRemain, SpaceShip *p)
 {
 
     play.clear();
@@ -89,6 +81,7 @@ void Level::Draw(sf::RenderWindow &play, GameObject& game, std::list<Entity *> &
     oneuptext.Draw(play);
     HighScore.Draw(play);
     Lives.Draw(play);
+    AsteroidsRemain.Draw(play);
 
     for (auto i : entities)
         i->draw(play);
@@ -101,9 +94,9 @@ void Level::Draw(sf::RenderWindow &play, GameObject& game, std::list<Entity *> &
     }
 }
 
-void Level::AsteroidHandler(int val, Animation & sRock, std::list<Entity*> &entities)
+void Level::AsteroidHandler(Animation & sRock, std::list<Entity*> &entities)
 {
-    for (int i = 0; i < val; i++)
+    for (int i = 0; i < m_AsteroidNum; i++)
     {
         Asteroids *a = new Asteroids();
         a->settings(sRock, rand() % MAP_WIDTH1, rand() % MAP_HEIGHT1, rand() % 360, 25);
@@ -130,6 +123,7 @@ void Level::CollisionHandler(Animation sSpaceShip,  std::list<Entity *> &entitie
                             Explosionsound1.play();
                             // val--
                             //std::cout<< val << std::endl;
+                            m_AsteroidNum--;
                             p->SetScore(10);
 
                             //if (val == 0)
@@ -146,8 +140,6 @@ void Level::CollisionHandler(Animation sSpaceShip,  std::list<Entity *> &entitie
                             Entity *e = new Entity();
                             e->settings(sExplosion, a->x_coord, a->y_coord, a->angle, a->R);
                             e->name = "explosion";
-                            entities.push_back(e);
-
                             p->settings(sSpaceShip, MAP_WIDTH1 / 2, MAP_HEIGHT1 / 2, 0, 20);
                             p->dx = 0;
                             p->dy = 0;
@@ -174,11 +166,12 @@ void Level::LifeHandler(std::list<Entity *> &entities)
 }
 
 
-void Level::ScoreHandler(TextManager &oneuptext, TextManager &HighScore, TextManager &Lives, SpaceShip *p)
+void Level::ScoreHandler(TextManager &oneuptext, TextManager &HighScore, TextManager &Lives, TextManager &AsteroidsRemain, SpaceShip *p)
 {
     std::ostringstream p1Score;
     std::ostringstream highscoreIn;
     std::ostringstream livesIn;
+    std::ostringstream AsteroidsIn;
     p1Score << "1UP "
             << "\n"
             << p->GetScore();
@@ -188,9 +181,23 @@ void Level::ScoreHandler(TextManager &oneuptext, TextManager &HighScore, TextMan
     livesIn << "Lives "
             << "\n"
             << p->GetLives();
+    AsteroidsIn << "Asteroids: " << m_AsteroidNum;
     oneuptext.TypeText(p1Score.str(), sf::Color::Red, {30, 30});
     HighScore.TypeText(highscoreIn.str(), sf::Color::Red, {325, 30});
     Lives.TypeText(livesIn.str(), sf::Color::Red, {675, 30});
+    AsteroidsRemain.TypeText(AsteroidsIn.str(), sf::Color::Red, {10,550});
+}
+
+void Level::ThrustHandler(Animation sSpaceShip, SpaceShip *p)
+{
+     if (p->thrust)
+    {
+        p->anim = sSpaceShip;
+    }
+    else
+    {
+        p->anim = sSpaceShip;
+    }
 
 }
 

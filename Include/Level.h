@@ -24,18 +24,22 @@ class Level
     bool m_isExitButtonSelected;
     bool m_isExitButtonPressed;
 
+    int m_AsteroidNum;
+
     public:
     Level(float Width, float Height);
     ~Level();
 
-    void AsteroidHandler(int val, Animation & sRock, std::list<Entity*> &entities);
+    void AsteroidHandler( Animation & sRock, std::list<Entity*> &entities);
     void CollisionHandler(Animation sSpaceShip,  std::list<Entity *> &entities, Animation sExplosion, sf::Sound &Explosionsound1, SpaceShip *p);
     void LifeHandler(std::list<Entity *> &entities);
-    void ScoreHandler(TextManager &oneuptext, TextManager &HighScore, TextManager &Lives, SpaceShip *p);
+    void ScoreHandler( TextManager &oneuptext, TextManager &HighScore, TextManager &Lives, TextManager &AsteroidsRemain, SpaceShip *p);
+    void ThrustHandler(Animation sSpaceShip, SpaceShip *p);
 
-    void Draw(sf::RenderWindow &play, GameObject& game, std::list<Entity *> &entities, TextManager &oneuptext, TextManager &HighScore, TextManager &Lives, SpaceShip *p);
+    void Draw(sf::RenderWindow &play, GameObject& game, std::list<Entity *> &entities, TextManager &oneuptext, TextManager &HighScore, TextManager &Lives, TextManager &AsteroidsRemain, SpaceShip *p);
     void ProcessInput(sf::RenderWindow &play ,sf::Event event, sf::Sound &Lasersound, std::list<Entity *> &entities, Animation sBullet, SpaceShip *p);
-    void Update(sf::RenderWindow &play, GameObject& game, std::list<Entity *> &entities, TextManager &oneuptext, TextManager &HighScore, TextManager &Lives, SpaceShip *p, Animation sSpaceShip, Animation sExplosion, sf::Sound &Explosionsound1 );
+    void Update(sf::RenderWindow &play, GameObject& game, std::list<Entity *> &entities, TextManager &oneuptext, TextManager &HighScore, TextManager &Lives, SpaceShip *p,
+     Animation sSpaceShip, Animation sExplosion, sf::Sound &Explosionsound1, TextManager &AsteroidsRemain);
 
 };
 

@@ -33,10 +33,12 @@ int main()
 
     TextManager oneuptext;
     TextManager HighScore;
+    TextManager AsteroidsRemain;
     TextManager Lives;
     oneuptext.LoadFont();
     HighScore.LoadFont();
     Lives.LoadFont();
+    AsteroidsRemain.LoadFont();
 
     sblaser.loadFromFile("/home/shanes/c++/SwagAsteroids/Resources/Sounds/Laser1.wav");
     sbExplosion.loadFromFile("/home/shanes/c++/SwagAsteroids/Resources/Sounds/Explosion-Hard.wav");
@@ -59,7 +61,7 @@ int main()
     int val;
     val = 5;
 
-    level.AsteroidHandler(val, sRock, entities);
+    level.AsteroidHandler(sRock, entities);
     std::cout << entities.size();
     val = entities.size();
 
@@ -93,8 +95,8 @@ int main()
             while (play.isOpen())
             {
                 level.ProcessInput(play, event1, Lasersound, entities, sBullet, p);
-                level.Update(play, game, entities, oneuptext, HighScore, Lives, p, sSpaceShip, sExplosion, Explosionsound1);
-                level.Draw(play,game, entities, oneuptext, HighScore, Lives, p);
+                level.Update(play, game, entities, oneuptext, HighScore, Lives, p, sSpaceShip, sExplosion, Explosionsound1, AsteroidsRemain);
+                level.Draw(play,game, entities, oneuptext, HighScore, Lives, AsteroidsRemain, p);
 
                 mainMenu.close();
             }

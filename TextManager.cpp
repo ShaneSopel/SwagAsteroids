@@ -16,5 +16,5 @@ void TextManager::TypeText(std::string text, sf::Color fontColor, sf::Vector2f p
 
  void TextManager::Draw(sf::RenderTarget &window) 
 {
-        window.draw(textContent);
+    window.draw(textContent);
 }

@@ -7,7 +7,6 @@
 class TextManager
 {
     private:
-     std::string FONT_PATH = "bin/Assets/Fonts/";
      std::list<sf::Text*> texts;
      sf::Text textContent;
 

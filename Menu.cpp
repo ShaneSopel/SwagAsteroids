@@ -43,7 +43,6 @@ Menu::Menu(float width, float height)
 
 }
 
-
 Menu::~Menu()
 {
 

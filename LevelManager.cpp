@@ -4,26 +4,28 @@
 #include "Include/Asteroids.h"
 #include "Include/GameObject.h"
 #include "Include/DrawMap.h"
-#include "Include/Level.h"
+#include "Include/LevelManager.h"
 
 #include "Include/SpaceConstants.h"
 
 using namespace SpaceConstants;
 
-Level::Level(float width, float height)
+LevelManager::LevelManager(float width, float height)
 : m_AsteroidNum(5)
 {
     oneuptext.LoadFont();
     HighScore.LoadFont();
     Lives.LoadFont();
     AsteroidsRemain.LoadFont();
+    sound.LoadSound();
+
 }
 
-Level::~Level()
+LevelManager::~LevelManager()
 {
 }
 
-void Level::ProcessInput(sf::RenderWindow &play ,sf::Event event, sf::Sound &Lasersound, std::list<Entity *> &entities, Animation sBullet, SpaceShip *p)
+void LevelManager::ProcessInput(sf::RenderWindow &play ,sf::Event event, std::list<Entity *> &entities, Animation sBullet, SpaceShip *p)
 {
     
     while (play.pollEvent(event))
@@ -33,7 +35,7 @@ void Level::ProcessInput(sf::RenderWindow &play ,sf::Event event, sf::Sound &Las
 
         if (event.key.code == sf::Keyboard::Space)
         {
-            Lasersound.play();
+            sound.getLaser();
             Bullet *b = new Bullet();
             b->settings(sBullet, p->x_coord, p->y_coord, p->angle, 10);
             entities.push_back(b);
@@ -51,11 +53,11 @@ void Level::ProcessInput(sf::RenderWindow &play ,sf::Event event, sf::Sound &Las
 
 }
 
-void Level::Update(sf::RenderWindow &play, GameObject& game, std::list<Entity *> &entities, SpaceShip *p, Animation sSpaceShip, Animation sExplosion, sf::Sound &Explosionsound1)
+void LevelManager::Update(sf::RenderWindow &play, GameObject& game, std::list<Entity *> &entities, SpaceShip *p, Animation sSpaceShip, Animation sExplosion)
 {
 
     ScoreHandler(p);
-    CollisionHandler(sSpaceShip,  entities, sExplosion, Explosionsound1, p);
+    CollisionHandler(sSpaceShip,  entities, sExplosion, p);
     ThrustHandler(sSpaceShip, p);
     LifeHandler(entities);
 
@@ -77,7 +79,7 @@ void Level::Update(sf::RenderWindow &play, GameObject& game, std::list<Entity *>
     
 }
 
-void Level::Draw(sf::RenderWindow &play, GameObject& game, std::list<Entity *> &entities, SpaceShip *p)
+void LevelManager::Draw(sf::RenderWindow &play, GameObject& game, std::list<Entity *> &entities, SpaceShip *p)
 {
 
     play.clear();
@@ -98,7 +100,7 @@ void Level::Draw(sf::RenderWindow &play, GameObject& game, std::list<Entity *> &
     }
 }
 
-void Level::AsteroidHandler(Animation & sRock, std::list<Entity*> &entities)
+void LevelManager::AsteroidHandler(Animation & sRock, std::list<Entity*> &entities)
 {
     for (int i = 0; i < m_AsteroidNum; i++)
     {
@@ -108,7 +110,7 @@ void Level::AsteroidHandler(Animation & sRock, std::list<Entity*> &entities)
     }
 }
 
-void Level::CollisionHandler(Animation sSpaceShip,  std::list<Entity *> &entities, Animation sExplosion, sf::Sound &Explosionsound1, SpaceShip *p)
+void LevelManager::CollisionHandler(Animation sSpaceShip,  std::list<Entity *> &entities, Animation sExplosion, SpaceShip *p)
 {
         for (auto a : entities)
     {
@@ -124,14 +126,14 @@ void Level::CollisionHandler(Animation sSpaceShip,  std::list<Entity *> &entitie
                             e->settings(sExplosion, a->x_coord, a->y_coord, 0, 0);
                             e->name = "explosion";
                             entities.push_back(e);
-                            Explosionsound1.play();
+                            sound.getExplosion();
 
                             m_AsteroidNum--;
                             p->SetScore(10);
 
                             //if (val == 0)
                             //{
-                            //    std::cout << "level complete" << std::endl;
+                            //    std::cout << "LevelManager complete" << std::endl;
                             //}
                         }
 
@@ -154,7 +156,7 @@ void Level::CollisionHandler(Animation sSpaceShip,  std::list<Entity *> &entitie
 }
 
 
-void Level::LifeHandler(std::list<Entity *> &entities)
+void LevelManager::LifeHandler(std::list<Entity *> &entities)
 {
     for (auto e : entities)
     {
@@ -169,7 +171,7 @@ void Level::LifeHandler(std::list<Entity *> &entities)
 }
 
 
-void Level::ScoreHandler( SpaceShip *p)
+void LevelManager::ScoreHandler( SpaceShip *p)
 {
     std::ostringstream p1Score;
     std::ostringstream highscoreIn;
@@ -191,7 +193,7 @@ void Level::ScoreHandler( SpaceShip *p)
     AsteroidsRemain.TypeText(AsteroidsIn.str(), sf::Color::Red, {10,550});
 }
 
-void Level::ThrustHandler(Animation sSpaceShip, SpaceShip *p)
+void LevelManager::ThrustHandler(Animation sSpaceShip, SpaceShip *p)
 {
      if (p->thrust)
     {
@@ -203,8 +205,3 @@ void Level::ThrustHandler(Animation sSpaceShip, SpaceShip *p)
     }
 
 }
-
-
-
-
-

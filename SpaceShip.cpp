@@ -35,7 +35,6 @@ void SpaceShip::update()
     if (y_coord>MAP_HEIGHT1) y_coord=0; if (y_coord<0) y_coord=MAP_HEIGHT1;
 }
 
-
 int SpaceShip::GetScore()
 {
   return m_score;

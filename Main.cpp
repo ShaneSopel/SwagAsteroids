@@ -2,7 +2,7 @@
 #include <list>
 #include <SFML/Graphics.hpp>
 
-#include "Include/Asteroids.h"
+
 #include "Include/Animation.h"
 #include "Include/Entity.h"
 #include "Include/GameObject.h"
@@ -15,15 +15,6 @@
 
 using namespace SpaceConstants;
 
-   void setlevel(int val, Animation & sRock, std::list<Entity*> &entities)
-    {
-        for (int i = 0; i < val; i++)
-        {
-            Asteroids *a = new Asteroids();
-            a->settings(sRock, rand() % MAP_WIDTH1, rand() % MAP_HEIGHT1, rand() % 360, 25);
-            entities.push_back(a);
-        }
-    }
 
 
 int main()
@@ -43,9 +34,9 @@ int main()
     TextManager oneuptext;
     TextManager HighScore;
     TextManager Lives;
-    oneuptext.loadFont();
-    HighScore.loadFont();
-    Lives.loadFont();
+    oneuptext.LoadFont();
+    HighScore.LoadFont();
+    Lives.LoadFont();
 
     sblaser.loadFromFile("/home/shanes/c++/SwagAsteroids/Resources/Sounds/Laser1.wav");
     sbExplosion.loadFromFile("/home/shanes/c++/SwagAsteroids/Resources/Sounds/Explosion-Hard.wav");
@@ -68,7 +59,7 @@ int main()
     int val;
     val = 5;
 
-    setlevel(val, sRock, entities);
+    level.AsteroidHandler(val, sRock, entities);
     std::cout << entities.size();
     val = entities.size();
 
@@ -91,7 +82,7 @@ int main()
         {
             menu.ProcessInput(mainMenu, event);
             menu.Update(mainMenu, game);
-            menu.draw(mainMenu);
+            menu.Draw(mainMenu);
         }
 
         if (game.GetState() == 1)
@@ -103,7 +94,7 @@ int main()
             {
                 level.ProcessInput(play, event1, Lasersound, entities, sBullet, p);
                 level.Update(play, game, entities, oneuptext, HighScore, Lives, p, sSpaceShip, sExplosion, Explosionsound1);
-                level.draw(play,game, entities, oneuptext, HighScore, Lives, p);
+                level.Draw(play,game, entities, oneuptext, HighScore, Lives, p);
 
                 mainMenu.close();
             }
@@ -118,7 +109,7 @@ int main()
                 {
                     gover.ProcessInput(GameOver, over);
                     gover.Update(GameOver, game);
-                    gover.draw(GameOver);
+                    gover.Draw(GameOver);
                 }
             }
         }

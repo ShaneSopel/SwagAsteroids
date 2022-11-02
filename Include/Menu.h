@@ -25,7 +25,7 @@ class Menu
     Menu(float Width, float Height);
     ~Menu();
 
-    void draw(sf::RenderWindow &window);
+    void Draw(sf::RenderWindow &window);
     void ProcessInput(sf::RenderWindow &window, sf::Event event);
     void Update(sf::RenderWindow &window,  GameObject &game);
 

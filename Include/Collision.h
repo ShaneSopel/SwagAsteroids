@@ -3,6 +3,6 @@
 
 #include "Entity.h"
 
-bool isCollide(Entity *a,Entity *b);
+bool Collide(Entity *a,Entity *b);
 
 #endif

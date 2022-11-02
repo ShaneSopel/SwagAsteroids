@@ -13,9 +13,9 @@ class TextManager
 
     public:
     sf::Font font;
-    void loadFont();
-    void typeText(std::string text, sf::Color fontColor, sf::Vector2f position);
-    void draw(sf::RenderTarget &window);
+    void LoadFont();
+    void TypeText(std::string text, sf::Color fontColor, sf::Vector2f position);
+    void Draw(sf::RenderTarget &window);
      
 };
 

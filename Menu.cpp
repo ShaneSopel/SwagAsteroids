@@ -150,11 +150,11 @@ void Menu::Update(sf::RenderWindow &window, GameObject& game)
 }
 
 
-void Menu::draw(sf::RenderWindow &window)
+void Menu::Draw(sf::RenderWindow &window)
 {
 
     window.clear();
-    draw_map(window);
+    Draw_map(window);
     window.draw(swag);
 
 

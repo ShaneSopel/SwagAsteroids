@@ -125,11 +125,11 @@ void GameOver::Update(sf::RenderWindow &window, GameObject& game)
 }
 
 
-void GameOver::draw(sf::RenderWindow &window)
+void GameOver::Draw(sf::RenderWindow &window)
 {
 
     window.clear();
-    draw_map(window);
+    Draw_map(window);
     window.draw(swag);
 
     for (int i = 0; i < MAX_NUMBER_OF_ITEMS; i++)

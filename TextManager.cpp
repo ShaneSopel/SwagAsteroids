@@ -1,11 +1,11 @@
 #include "Include/TextManager.h"
 
-void TextManager::loadFont() 
+void TextManager::LoadFont() 
 {
     font.loadFromFile("/home/shanes/c++/SwagAsteroids/Resources/Images/ARCADE.TTF");
 }
 
-void TextManager::typeText(std::string text, sf::Color fontColor, sf::Vector2f position)
+void TextManager::TypeText(std::string text, sf::Color fontColor, sf::Vector2f position)
 {
     textContent.setFont(font);
     textContent.setCharacterSize(20);
@@ -14,7 +14,7 @@ void TextManager::typeText(std::string text, sf::Color fontColor, sf::Vector2f p
     textContent.setColor(fontColor);
 }
 
- void TextManager::draw(sf::RenderTarget &window) 
+ void TextManager::Draw(sf::RenderTarget &window) 
 {
         window.draw(textContent);
 }

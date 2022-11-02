@@ -23,7 +23,7 @@ class GameOver
     GameOver(float Width, float Height);
     ~GameOver();
 
-    void draw(sf::RenderWindow &window);
+    void Draw(sf::RenderWindow &window);
     void ProcessInput(sf::RenderWindow &window, sf::Event event);
     void Update(sf::RenderWindow &window,  GameObject &game);
 

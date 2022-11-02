@@ -8,9 +8,9 @@
 class Asteroids : public Entity 
 {
    
-public:
-    Asteroids();
-    void update();
+    public:
+     Asteroids();
+     void update();
 
 };
 

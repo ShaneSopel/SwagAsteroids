@@ -14,9 +14,8 @@ class Bullet: public Entity
      // Spaceship control keys. 
      bool shoot_key;
 
-
-    Bullet();
-    void update();
+     Bullet();
+     void update();
 };
 
 #endif

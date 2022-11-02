@@ -9,6 +9,7 @@
 
 class Menu
 {
+    private:
     sf::Font font;
     sf::Text text[MAX_NUMBER_OF_ITEMS];
     sf::Sprite swag;

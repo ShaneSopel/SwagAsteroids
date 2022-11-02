@@ -14,16 +14,13 @@
 
 class LevelManager
 {
+    private:
+
     sf::Font font;
     sf::Sprite swag;
     sf::Texture swaglogo;
 
     SoundManager sound;
-    sf::SoundBuffer sblaser;
-    sf::SoundBuffer sbExplosion;
-    sf::Sound Lasersound;
-    sf::Sound Explosionsound1; 
-
 
     TextManager oneuptext;
     TextManager HighScore;
@@ -38,6 +35,7 @@ class LevelManager
 
     void AsteroidHandler( Animation & sRock, std::list<Entity*> &entities);
     void CollisionHandler(Animation sSpaceShip,  std::list<Entity *> &entities, Animation sExplosion, SpaceShip *p);
+    void LevelHandler(GameObject& game);
     void LifeHandler(std::list<Entity *> &entities);
     void ScoreHandler( SpaceShip *p);
     void ThrustHandler(Animation sSpaceShip, SpaceShip *p);

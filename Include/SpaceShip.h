@@ -8,6 +8,8 @@
 
 class SpaceShip : public Entity
 {
+private:
+
     // X and Y Axis
     short x_dir;
     unsigned short y_dir;

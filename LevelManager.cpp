@@ -18,7 +18,6 @@ LevelManager::LevelManager(float width, float height)
     Lives.LoadFont();
     AsteroidsRemain.LoadFont();
     sound.LoadSound();
-
 }
 
 LevelManager::~LevelManager()
@@ -76,7 +75,7 @@ void LevelManager::Update(sf::RenderWindow &play, GameObject& game, std::list<En
             i++;
     }
 
-    
+    LevelHandler(game);
 }
 
 void LevelManager::Draw(sf::RenderWindow &play, GameObject& game, std::list<Entity *> &entities, SpaceShip *p)
@@ -95,7 +94,7 @@ void LevelManager::Draw(sf::RenderWindow &play, GameObject& game, std::list<Enti
 
     if (p->GetLives() == 0)
     {
-        game.SetState(2);
+        game.SetState(STATE::GAMEOVER);
         play.close();
     }
 }
@@ -155,6 +154,32 @@ void LevelManager::CollisionHandler(Animation sSpaceShip,  std::list<Entity *> &
         }
 }
 
+void LevelManager::LevelHandler(GameObject &game)
+{
+    if(m_AsteroidNum == 0)
+    {  
+        for (int i=0; i < STATE::GAMEOVER; i++)
+        {
+                    
+            std::cout << "state is" << i << std::endl;
+            if (i == 2)
+            {
+                m_AsteroidNum = 10;
+                game.SetState(i);
+            }
+            if (i == 3)
+            {
+                m_AsteroidNum = 15;
+                game.SetState(i);
+            }
+          //  else
+          //  {
+          //      break;
+          //  }
+
+        }
+    }
+}
 
 void LevelManager::LifeHandler(std::list<Entity *> &entities)
 {

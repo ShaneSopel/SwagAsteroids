@@ -18,6 +18,7 @@ int main()
 {
     Menu menu(MAP_WIDTH1, MAP_HEIGHT1);
     LevelManager level(MAP_WIDTH1, MAP_HEIGHT1);
+    LevelManager level2(MAP_WIDTH1, MAP_HEIGHT1);
     GameOver gover(MAP_WIDTH1, MAP_HEIGHT1);
 
     GameObject game;
@@ -49,27 +50,62 @@ int main()
     {
 
         sf::Event event;
-        if (game.GetState() == 0)
+        if (game.GetState() == STATE::menu)
         {
             menu.ProcessInput(mainMenu, event);
             menu.Update(mainMenu, game);
             menu.Draw(mainMenu);
         }
 
-        if (game.GetState() == 1)
+        if (game.GetState() == STATE::level1)
         {
-            sf::RenderWindow play(sf::VideoMode(MAP_WIDTH1, MAP_HEIGHT1), "SwagAsteroids");
+            sf::RenderWindow level1(sf::VideoMode(MAP_WIDTH1, MAP_HEIGHT1), "SwagAsteroids");
             sf::Event event1;
-            while (play.isOpen())
+            while (level1.isOpen())
             {
-                level.ProcessInput(play, event1, entities, sBullet, p);
-                level.Update(play, game, entities, p, sSpaceShip, sExplosion);
-                level.Draw(play,game, entities, p);
+                level.ProcessInput(level1, event1, entities, sBullet, p);
+                level.Update(level1, game, entities, p, sSpaceShip, sExplosion);
+                level.Draw(level1,game, entities, p);
 
                 mainMenu.close();
+
+                if (game.GetState() == STATE::level2)
+                {
+                    std::cout << "made it to level2";
+                    sf::RenderWindow level2(sf::VideoMode(MAP_WIDTH1, MAP_HEIGHT1), "SwagAsteroids");
+                    sf::Event event2;
+                    level1.close();
+                    level.AsteroidHandler(sRock, entities);
+                
+                    while (level2.isOpen())
+                    {
+                        level.ProcessInput(level2, event2, entities, sBullet, p);
+                        level.Update(level2, game, entities, p, sSpaceShip, sExplosion);
+                        level.Draw(level2,game, entities, p);
+                    }
+                }
+
+                if (game.GetState() == STATE::level3)
+                {
+                    std::cout << "made it to level3";
+                    sf::RenderWindow level3(sf::VideoMode(MAP_WIDTH1, MAP_HEIGHT1), "SwagAsteroids");
+                    sf::Event event3;
+                    level1.close();
+                    level.AsteroidHandler(sRock, entities);
+                
+                    while (level3.isOpen())
+                    {
+                        level.ProcessInput(level3, event3, entities, sBullet, p);
+                        level.Update(level3, game, entities, p, sSpaceShip, sExplosion);
+                        level.Draw(level3,game, entities, p);
+                    }
+                }
+
             }
 
-            if (game.GetState() == 2)
+           
+
+            if (game.GetState() == STATE::GAMEOVER)
             {
                 std::cout << "made it here";
                 sf::RenderWindow GameOver(sf::VideoMode(MAP_WIDTH1, MAP_HEIGHT1), "SwagAsteroids");

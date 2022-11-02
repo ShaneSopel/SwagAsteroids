@@ -9,7 +9,12 @@
 enum STATE
 {
     menu = 0,
-    level1
+    level1,
+    level2,
+    level3,
+    level4,
+    level5,
+    GAMEOVER
 };
 
 class GameObject

@@ -139,7 +139,7 @@ void Menu::Update(sf::RenderWindow &window, GameObject& game)
 
     if (m_isPlayButtonPressed)
     {
-        game.SetState(1);
+        game.SetState(STATE::level1);
     }
 
     if (m_isExitButtonPressed)

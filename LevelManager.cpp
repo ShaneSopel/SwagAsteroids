@@ -129,11 +129,6 @@ void LevelManager::CollisionHandler(Animation sSpaceShip,  std::list<Entity *> &
 
                             m_AsteroidNum--;
                             p->SetScore(10);
-
-                            //if (val == 0)
-                            //{
-                            //    std::cout << "LevelManager complete" << std::endl;
-                            //}
                         }
 
                     if (a->name == "SpaceShip" && b->name == "asteroid")
@@ -144,11 +139,14 @@ void LevelManager::CollisionHandler(Animation sSpaceShip,  std::list<Entity *> &
                             Entity *e = new Entity();
                             e->settings(sExplosion, a->x_coord, a->y_coord, a->angle, a->R);
                             e->name = "explosion";
+                            entities.push_back(e);
                             p->settings(sSpaceShip, MAP_WIDTH1 / 2, MAP_HEIGHT1 / 2, 0, 20);
                             p->dx = 0;
                             p->dy = 0;
+                            sound.getSpaceShipDead();
 
                             p->SetLives(1);
+                            m_AsteroidNum--;
                         }
                 }
         }
@@ -157,27 +155,22 @@ void LevelManager::CollisionHandler(Animation sSpaceShip,  std::list<Entity *> &
 void LevelManager::LevelHandler(GameObject &game)
 {
     if(m_AsteroidNum == 0)
-    {  
-        for (int i=0; i < STATE::GAMEOVER; i++)
-        {
-                    
-            std::cout << "state is" << i << std::endl;
-            if (i == 2)
+    { 
+            m_LevelUp++;   
+            
+            if (m_LevelUp == 2)
             {
+                std::cout << "level2";
                 m_AsteroidNum = 10;
-                game.SetState(i);
+                game.SetState(STATE::level2);
             }
-            if (i == 3)
+            if (m_LevelUp == 3)
             {
+                 std::cout << "level3";
                 m_AsteroidNum = 15;
-                game.SetState(i);
+                game.SetState(STATE::level3);
             }
-          //  else
-          //  {
-          //      break;
-          //  }
-
-        }
+        
     }
 }
 

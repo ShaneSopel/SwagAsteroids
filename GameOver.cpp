@@ -12,12 +12,12 @@ GameOver::GameOver(float width, float height)
 : m_isPlayButtonSelected(true), m_isPlayButtonPressed(false), 
 m_isExitButtonSelected(false), m_isExitButtonPressed(false)
 {
-    if(!font.loadFromFile("/home/shanes/c++/SwagAsteroids/Resources/Images/ARCADE.TTF"))
+    if(!font.loadFromFile("./../Resources/Images/ARCADE.TTF"))
     {
 
     }
    
-    swaglogo.loadFromFile("/home/shanes/c++/SwagAsteroids/Resources/Images/GameOver.png");
+    swaglogo.loadFromFile("./../Resources/Images/GameOver.png");
     swag.setTexture(swaglogo);
 
     // Play Button

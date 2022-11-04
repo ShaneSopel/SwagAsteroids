@@ -12,12 +12,12 @@ Menu::Menu(float width, float height)
 : m_isPlayButtonSelected(true), m_isPlayButtonPressed(false), m_isOptionsButtonSelected(false),
       m_isOptionsButtonPressed(false), m_isExitButtonSelected(false), m_isExitButtonPressed(false)
 {
-    if(!font.loadFromFile("/home/shanes/c++/SwagAsteroids/Resources/Images/ARCADE.TTF"))
+    if(!font.loadFromFile("./../Resources/Images/ARCADE.TTF"))
     {
 
     }
    
-    swaglogo.loadFromFile("/home/shanes/c++/SwagAsteroids/Resources/Images/Asteroids.png");
+    swaglogo.loadFromFile("./../Resources/Images/Asteroids.png");
     swag.setTexture(swaglogo);
 
     // Play Button

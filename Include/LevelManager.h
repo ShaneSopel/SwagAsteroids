@@ -28,6 +28,7 @@ class LevelManager
     TextManager Lives;
 
     int m_AsteroidNum;
+    int m_LevelUp = STATE::level1;
 
     public:
     LevelManager(float Width, float Height);

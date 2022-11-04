@@ -10,8 +10,10 @@ class SoundManager
 
     sf::SoundBuffer sblaser;
     sf::SoundBuffer sbExplosion;
+    sf::SoundBuffer sbSpaceshipDead;
     sf::Sound Lasersound;
-    sf::Sound Explosionsound1; 
+    sf::Sound Explosionsound1;
+    sf::Sound SpaceShipDead;
 
     public:
 
@@ -19,6 +21,7 @@ class SoundManager
     void TypeSound();
     void getLaser();
     void getExplosion();
+    void getSpaceShipDead();
 
      
 };

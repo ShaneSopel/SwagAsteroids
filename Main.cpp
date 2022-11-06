@@ -43,7 +43,7 @@ int main()
     p->settings(sSpaceShip, 400, 400, 0, 20);
     entities.push_back(p);
 
-    sf::RenderWindow mainMenu(sf::VideoMode(MAP_WIDTH1, MAP_HEIGHT1), "SwagAsteroids", sf::Style::Close);
+    sf::RenderWindow mainMenu(sf::VideoMode(MAP_WIDTH1, MAP_HEIGHT1), "SwagAsteroids", sf::Style::Close );
     mainMenu.setFramerateLimit(60);
 
     while (mainMenu.isOpen())
@@ -70,6 +70,12 @@ int main()
 
                 mainMenu.close();
 
+                if (game.GetState() == STATE::GAMEOVER)
+                {
+                    level1.close();
+                    gover.SetGameOver(game);             
+                }
+                     
                 if (game.GetState() == STATE::level2)
                 {
                     std::cout << "made it to level2";
@@ -87,8 +93,16 @@ int main()
                         level.ProcessInput(level2, event2, entities, sBullet, p);
                         level.Update(level2, game, entities, p, sSpaceShip, sExplosion);
                         level.Draw(level2,game, entities, p);
-                    
 
+
+                        if (game.GetState() == STATE::GAMEOVER)
+                        {
+                            level1.close();
+                            level2.close();
+                            gover.SetGameOver(game);
+                        }
+                          
+                
                         if (game.GetState() == STATE::level3)
                         {
                             std::cout << "made it to level3";
@@ -108,21 +122,11 @@ int main()
 
                                 if (game.GetState() == STATE::GAMEOVER)
                                 {
-                                    std::cout << "made it here";
-                                    sf::RenderWindow GameOver(sf::VideoMode(MAP_WIDTH1, MAP_HEIGHT1), "SwagAsteroids", sf::Style::Close);
-                                    sf::Event over;
-                                    entities.clear();
                                     level1.close();
                                     level2.close();
                                     level3.close();
-
-                                    while (GameOver.isOpen())
-                                    {
-                                        gover.ProcessInput(GameOver, over);
-                                        gover.Update(GameOver, game);
-                                        gover.Draw(GameOver);
-                                    }
-                                }
+                                    gover.SetGameOver(game);             
+                                }    
                        }   }
                     }
                 }   

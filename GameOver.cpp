@@ -29,13 +29,12 @@ m_isExitButtonSelected(false), m_isExitButtonPressed(false)
 
     // Exit Button
     text[2].setFont(font);
-    text[2].setColor(sf::Color::White);
+    text[2].setColor(sf::Color::Red);
     text[2].setString("Exit");
     text[2].setOrigin(text->getLocalBounds().width / 2, text->getLocalBounds().height / 2);
     text[2].setPosition(sf::Vector2f(width / 2, height / (MAX_NUMBER_OF_ITEMS + 1) * 3));
 
 }
-
 
 GameOver::~GameOver()
 {
@@ -70,7 +69,7 @@ void GameOver::ProcessInput(sf::RenderWindow &window ,sf::Event event)
             }
 
             break;
-        }
+        } 
         case sf::Keyboard::Return:
         {
                     
@@ -112,7 +111,7 @@ void GameOver::Update(sf::RenderWindow &window, GameObject& game)
         text[1].setFillColor(sf::Color::White);
         text[2].setFillColor(sf::Color::Red);
     }
-
+    
     if (m_isPlayButtonPressed)
     {
         game.SetState(STATE::level1);
@@ -138,5 +137,20 @@ void GameOver::Draw(sf::RenderWindow &window)
     }
 
     window.display();
+}
+
+void GameOver::SetGameOver(GameObject &game)
+{
+    std::cout << "made it here";
+    sf::RenderWindow GameOver(sf::VideoMode(MAP_WIDTH1, MAP_HEIGHT1), "SwagAsteroids", sf::Style::Close);
+    sf::Event over;
+
+    while (GameOver.isOpen())
+    {
+        ProcessInput(GameOver, over);
+        Update(GameOver, game);
+        Draw(GameOver);
+    }
+
 }
    

@@ -26,6 +26,7 @@ class GameOver
     void Draw(sf::RenderWindow &window);
     void ProcessInput(sf::RenderWindow &window, sf::Event event);
     void Update(sf::RenderWindow &window,  GameObject &game);
+    void SetGameOver(GameObject &game);
 
 };
 

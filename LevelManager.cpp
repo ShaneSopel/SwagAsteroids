@@ -1,5 +1,7 @@
 #include <iostream>
 #include <sstream>
+#include <chrono>
+#include <thread>
 
 #include "Include/Asteroids.h"
 #include "Include/GameObject.h"
@@ -17,7 +19,10 @@ LevelManager::LevelManager(float width, float height)
     HighScore.LoadFont();
     Lives.LoadFont();
     AsteroidsRemain.LoadFont();
+    Levels.LoadFont();
     sound.LoadSound();
+    swaglogo.loadFromFile("./../Resources/Images/Asteroids.png");
+    swag.setTexture(swaglogo);
 }
 
 LevelManager::~LevelManager()
@@ -32,7 +37,7 @@ void LevelManager::ProcessInput(sf::RenderWindow &play ,sf::Event event, std::li
         if (event.type == sf::Event::Closed)
             play.close();
 
-        if (event.key.code == sf::Keyboard::Space)
+        if ((event.key.code == sf::Keyboard::Space) && (event.type == sf::Event::KeyReleased))
         {
             sound.getLaser();
             Bullet *b = new Bullet();
@@ -75,7 +80,7 @@ void LevelManager::Update(sf::RenderWindow &play, GameObject& game, std::list<En
             i++;
     }
 
-    LevelHandler(game);
+    LevelHandler(game, play);
 }
 
 void LevelManager::Draw(sf::RenderWindow &play, GameObject& game, std::list<Entity *> &entities, SpaceShip *p)
@@ -152,7 +157,7 @@ void LevelManager::CollisionHandler(Animation sSpaceShip,  std::list<Entity *> &
         }
 }
 
-void LevelManager::LevelHandler(GameObject &game)
+void LevelManager::LevelHandler(GameObject &game, sf::RenderWindow &play)
 {
     if(m_AsteroidNum == 0)
     { 
@@ -161,17 +166,18 @@ void LevelManager::LevelHandler(GameObject &game)
             if (m_LevelUp == 2)
             {
                 std::cout << "level2";
+                SplashScreen(play);
                 m_AsteroidNum = 10;
                 game.SetState(STATE::level2);
             }
             if (m_LevelUp == 3)
             {
-                 std::cout << "level3";
+                std::cout << "level3";
+                SplashScreen(play);
                 m_AsteroidNum = 15;
                 game.SetState(STATE::level3);
             }
-        
-    }
+    }        
 }
 
 void LevelManager::LifeHandler(std::list<Entity *> &entities)
@@ -195,6 +201,9 @@ void LevelManager::ScoreHandler( SpaceShip *p)
     std::ostringstream highscoreIn;
     std::ostringstream livesIn;
     std::ostringstream AsteroidsIn;
+    std::ostringstream LevelsIn;
+    int m_LevelUp1 = m_LevelUp;
+    LevelsIn << "Level: " << m_LevelUp1 + 1 ;
     p1Score << "1UP "
             << "\n"
             << p->GetScore();
@@ -209,6 +218,7 @@ void LevelManager::ScoreHandler( SpaceShip *p)
     HighScore.TypeText(highscoreIn.str(), sf::Color::Red, {325, 30});
     Lives.TypeText(livesIn.str(), sf::Color::Red, {675, 30});
     AsteroidsRemain.TypeText(AsteroidsIn.str(), sf::Color::Red, {10,550});
+    Levels.TypeText(LevelsIn.str(), sf::Color::Red, {325,325});
 }
 
 void LevelManager::ThrustHandler(Animation sSpaceShip, SpaceShip *p)
@@ -223,3 +233,13 @@ void LevelManager::ThrustHandler(Animation sSpaceShip, SpaceShip *p)
     }
 
 }
+
+void LevelManager::SplashScreen(sf::RenderWindow &play)
+{
+    play.clear();
+    Draw_map(play);
+    play.draw(swag);
+    Levels.Draw(play);
+    play.display();
+    std::this_thread::sleep_for(std::chrono::seconds(3)); 
+} 

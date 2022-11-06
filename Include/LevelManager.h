@@ -26,6 +26,7 @@ class LevelManager
     TextManager HighScore;
     TextManager AsteroidsRemain;
     TextManager Lives;
+    TextManager Levels;
 
     int m_AsteroidNum;
     int m_LevelUp = STATE::level1;
@@ -36,10 +37,11 @@ class LevelManager
 
     void AsteroidHandler( Animation & sRock, std::list<Entity*> &entities);
     void CollisionHandler(Animation sSpaceShip,  std::list<Entity *> &entities, Animation sExplosion, SpaceShip *p);
-    void LevelHandler(GameObject& game);
+    void LevelHandler(GameObject& game, sf::RenderWindow &play);
     void LifeHandler(std::list<Entity *> &entities);
     void ScoreHandler( SpaceShip *p);
     void ThrustHandler(Animation sSpaceShip, SpaceShip *p);
+    void SplashScreen(sf::RenderWindow &play);
 
     void Draw(sf::RenderWindow &play, GameObject& game, std::list<Entity *> &entities,  SpaceShip *p);
     void ProcessInput(sf::RenderWindow &play ,sf::Event event, std::list<Entity *> &entities, Animation sBullet, SpaceShip *p);
